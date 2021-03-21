@@ -4,23 +4,7 @@ import java.util.ArrayList;
 
 public class Corona {
 
-    public static final ArrayList<Corona> CORONA_STATISTICS = new ArrayList<>();
-
-    public static boolean containsRegion(String region) {
-        for (Corona data : CORONA_STATISTICS) {
-            if (data.getRegion().equalsIgnoreCase(region))
-                return true;
-        }
-        return false;
-    }
-
-    public static Corona getRegion(String region) {
-        for (Corona data : CORONA_STATISTICS) {
-            if (data.getRegion().equalsIgnoreCase(region))
-                return data;
-        }
-        return null;
-    }
+    private static final ArrayList<Corona> CORONA_STATISTICS = new ArrayList<>();
 
     private final String region;
 
@@ -57,5 +41,26 @@ public class Corona {
     public void addTest(int amount) {
         this.test += amount;
     }
+
+    public static boolean containsRegion(String region) {
+        for (Corona data : CORONA_STATISTICS) {
+            if (data.getRegion().equalsIgnoreCase(region))
+                return true;
+        }
+        return false;
+    }
+
+    public static Corona getRegion(String region) {
+        for (Corona data : CORONA_STATISTICS) {
+            if (data.getRegion().equalsIgnoreCase(region))
+                return data;
+        }
+        return null;
+    }
+
+    public static ArrayList<Corona> getCoronaStatistics() {
+        return CORONA_STATISTICS;
+    }
+
 
 }
