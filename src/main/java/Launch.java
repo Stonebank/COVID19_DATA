@@ -57,8 +57,10 @@ public class Launch {
 
             Corona region = Corona.getRegion(data[1]);
 
-            if (region == null)
+            if (region == null) {
+                System.err.println(data[1] + " is skipped due to an error...");
                 continue;
+            }
 
             region.addInfected(infected);
             region.addDead(dead);
