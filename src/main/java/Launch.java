@@ -1,24 +1,26 @@
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.opencsv.CSVReader;
 import net.lingala.zip4j.core.ZipFile;
 import net.lingala.zip4j.exception.ZipException;
+import statistics.Corona;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Objects;
+import java.util.regex.Pattern;
 
 public class Launch {
 
     public static void main(String[] args) throws IOException, ZipException {
-
-        // test to gather data
 
         String date = new SimpleDateFormat("dd-MM-yyyy").format(Calendar.getInstance().getTime());
 
@@ -39,8 +41,39 @@ public class Launch {
         FileReader reader = new FileReader(destination + "Regionalt_DB/01_noegle_tal.csv");
         CSVReader csvReader = new CSVReader(reader);
 
-        for (String[] strings : csvReader.readAll()) {
-            System.out.println(strings[0]);
+        List<String[]> strings = csvReader.readAll();
+
+        for (int i = 1; i < strings.size(); i++) {
+
+            String[] data = Arrays.toString(strings.get(i)).split(";");
+
+            int infected = Integer.parseInt(data[3]);
+            int dead = Integer.parseInt(data[4]);
+            int healthy = Integer.parseInt(data[5]);
+            int hospitalized = Integer.parseInt(data[6]);
+            int test = Integer.parseInt(data[7]);
+
+            if (!Corona.containsRegion(data[1]))
+                Corona.CORONA_STATISTICS.add(new Corona(data[1]));
+
+            Corona region = Corona.getRegion(data[1]);
+
+            if (region == null)
+                continue;
+
+            region.addInfected(infected);
+            region.addDead(dead);
+            region.addHealthy(healthy);
+            region.addHospitalized(hospitalized);
+            region.addTest(test);
+
+
+        }
+
+        try (Writer writer = Files.newBufferedWriter(Paths.get("./data/json/" + date + ".json"), StandardCharsets.UTF_8)) {
+            new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create().toJson(Corona.CORONA_STATISTICS, writer);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
     }
