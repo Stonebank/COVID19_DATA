@@ -67,7 +67,7 @@ public class Corona {
 
     public static void main(String[] args) {
 
-        Corona[] actual = getStoredData("19-03-2021");
+        Corona[] actual = getStoredData("22-03-2021");
         Corona[] old = getStoredData("18-03-2021");
 
         assert actual != null;
@@ -75,22 +75,32 @@ public class Corona {
 
         for (int i = 0; i < actual.length; i++) {
 
-            int deltaInfected = actual[i].infected - old[i].infected;
-            int deltaDead = actual[i].dead - old[i].dead;
-            int deltaHealthy = actual[i].recovered - old[i].recovered;
-            int deltaHospitalized = actual[i].hospitalized - old[i].hospitalized;
-            int deltaTest = actual[i].test - old[i].test;
+            int deltaInfected = subtract(actual[i].infected, old[i].infected);
+            int deltaDead = subtract(actual[i].dead, old[i].dead);
+            int deltaHealthy = subtract(actual[i].recovered, old[i].recovered);
+            int deltaHospitalized = subtract(actual[i].hospitalized, old[i].hospitalized);
+            int deltaTest = subtract(actual[i].test, old[i].test);
 
             System.out.println("Region: " + actual[i].getRegion());
-            System.out.println("Infected: +" + deltaInfected);
-            System.out.println("Dead: +" + deltaDead);
-            System.out.println("Healthy: +" + deltaHealthy);
-            System.out.println("Hospitalized: +" + deltaHospitalized);
-            System.out.println("Test: +" + deltaTest);
+            System.out.println(getSymbol("Infected", deltaInfected));
+            System.out.println(getSymbol("Dead", deltaDead));
+            System.out.println(getSymbol("Recovered", deltaHealthy));
+            System.out.println(getSymbol("Hospitalized", deltaHospitalized));
+            System.out.println(getSymbol("Test", deltaTest));
             System.out.println();
 
         }
 
+    }
+
+    private static String getSymbol(String category, int input) {
+        if (input == 0)
+            return category + ": " + input;
+        return category + ": " + (input > 0 ? "+" : "-") + input;
+    }
+
+    private static int subtract(int input_one, int input_two) {
+        return input_one > input_two ? input_one - input_two : input_two - input_one;
     }
 
     public static Corona[] getStoredData(String date) {
