@@ -32,7 +32,7 @@ public class Launch {
         date.set(Calendar.SECOND, 0);
         date.set(Calendar.MILLISECOND, 0);
 
-        System.out.println("Planned task will execute " + date.get(Calendar.HOUR) + ":" + date.get(Calendar.MINUTE));
+        System.out.println("Planned task will execute " + date.get(Calendar.HOUR) + ":" + date.get(Calendar.MINUTE) + ".");
 
         timer.schedule(new TimerTask() {
             @Override
