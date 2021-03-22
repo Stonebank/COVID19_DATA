@@ -27,12 +27,12 @@ public class Launch {
         Timer timer = new Timer();
         Calendar date = Calendar.getInstance();
 
-        date.set(Calendar.HOUR, 14);
-        date.set(Calendar.MINUTE, 5);
+        date.set(Calendar.HOUR_OF_DAY, 16);
+        date.set(Calendar.MINUTE, 10);
         date.set(Calendar.SECOND, 0);
         date.set(Calendar.MILLISECOND, 0);
 
-        System.out.println("Planned task will execute " + date.get(Calendar.HOUR) + ":" + date.get(Calendar.MINUTE) + ".");
+        System.out.println("Planned task will execute " + date.get(Calendar.HOUR_OF_DAY) + ":" + date.get(Calendar.MINUTE) + ".");
 
         timer.schedule(new TimerTask() {
             @Override
@@ -42,12 +42,10 @@ public class Launch {
                     download();
                     extract();
                     readData();
+                    writeToJson();
                 } catch (IOException | ZipException e) {
                     e.printStackTrace();
                 }
-
-                writeToJson();
-
 
             }
         }, date.getTime());
@@ -57,7 +55,7 @@ public class Launch {
     private static void download() throws IOException {
         InputStream file = new URL(Objects.requireNonNull(getUrl())).openStream();
         Files.copy(file, Paths.get(source), StandardCopyOption.REPLACE_EXISTING);
-        System.out.println("Fetching file for " + date + "...");
+        System.out.println("Fetching file for " + date + " from " + getUrl() + "...");
 
         File directory = new File(destination);
 
