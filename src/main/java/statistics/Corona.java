@@ -67,8 +67,8 @@ public class Corona {
 
     public static void main(String[] args) {
 
-        Corona[] actual = getStoredData("22-03-2021");
-        Corona[] old = getStoredData("19-03-2021");
+        Corona[] actual = getStoredData("19-03-2021");
+        Corona[] old = getStoredData("18-03-2021");
 
         assert actual != null;
         assert old != null;
@@ -87,6 +87,7 @@ public class Corona {
             System.out.println("Healthy: +" + deltaHealthy);
             System.out.println("Hospitalized: +" + deltaHospitalized);
             System.out.println("Test: +" + deltaTest);
+            System.out.println();
 
         }
 

@@ -79,6 +79,8 @@ public class Launch {
 
             String[] data = Arrays.toString(csvData.get(i)).split(";");
 
+            System.out.println(Arrays.toString(data));
+
             int infected = Integer.parseInt(data[3]);
             int dead = Integer.parseInt(data[4]);
             int healthy = Integer.parseInt(data[5]);
@@ -100,7 +102,6 @@ public class Launch {
             region.addRecovered(healthy);
             region.addHospitalized(hospitalized);
             region.addTest(test);
-
 
         }
     }
