@@ -55,7 +55,7 @@ public class Launch {
     private static void download() throws IOException {
         InputStream file = new URL(Objects.requireNonNull(getUrl())).openStream();
         Files.copy(file, Paths.get(source), StandardCopyOption.REPLACE_EXISTING);
-        System.out.println("Fetching file for " + date + " from " + getUrl() + "...");
+        System.out.println("Fetching file for " + date + "...");
 
         File directory = new File(destination);
 
