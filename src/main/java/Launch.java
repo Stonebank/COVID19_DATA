@@ -22,7 +22,7 @@ public class Launch {
     private final static String source = "./data/downloaded/" + date + ".zip";
     private final static String destination = "./data/extracted/" + date + "/";
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
 
         Timer timer = new Timer();
         Calendar date = Calendar.getInstance();
