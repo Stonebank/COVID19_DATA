@@ -2,6 +2,8 @@ import com.google.gson.GsonBuilder;
 import com.opencsv.CSVReader;
 import net.lingala.zip4j.core.ZipFile;
 import net.lingala.zip4j.exception.ZipException;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import statistics.Corona;
 
 import java.io.*;
@@ -11,20 +13,49 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.List;
+import java.util.*;
 
 public class Launch {
 
-    public static void main(String[] args) throws IOException, ZipException {
+    private final static String date = new SimpleDateFormat("dd-MM-yyyy").format(Calendar.getInstance().getTime());
 
-        String date = new SimpleDateFormat("dd-MM-yyyy").format(Calendar.getInstance().getTime());
+    private final static String source = "./data/downloaded/" + date + ".zip";
+    private final static String destination = "./data/extracted/" + date + "/";
 
-        String source = "./data/downloaded/" + date + ".zip";
-        String destination = "./data/extracted/" + date + "/";
+    public static void main(String[] args) throws InterruptedException {
 
-        InputStream file = new URL("https://files.ssi.dk/covid19/overvagning/dashboard/covid-19_dashboard_19032021-j3k4").openStream();
+        Timer timer = new Timer();
+        Calendar date = Calendar.getInstance();
+
+        date.set(Calendar.HOUR, 14);
+        date.set(Calendar.MINUTE, 5);
+        date.set(Calendar.SECOND, 0);
+        date.set(Calendar.MILLISECOND, 0);
+
+        System.out.println("Planned task will execute " + date.get(Calendar.HOUR) + ":" + date.get(Calendar.MINUTE));
+
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+
+                try {
+                    download();
+                    extract();
+                    readData();
+                } catch (IOException | ZipException e) {
+                    e.printStackTrace();
+                }
+
+                writeToJson();
+
+
+            }
+        }, date.getTime());
+
+    }
+
+    private static void download() throws IOException {
+        InputStream file = new URL(Objects.requireNonNull(getUrl())).openStream();
         Files.copy(file, Paths.get(source), StandardCopyOption.REPLACE_EXISTING);
         System.out.println("Fetching file for " + date + "...");
 
@@ -32,11 +63,15 @@ public class Launch {
 
         if (directory.mkdir())
             System.out.println("Created directory for " + date);
+    }
 
+    private static void extract() throws ZipException {
         ZipFile zipFile = new ZipFile(source);
         zipFile.extractAll(destination);
         System.out.println("Extracting " + date + ".zip");
+    }
 
+    private static void readData() throws IOException {
         CSVReader csvReader = new CSVReader(new FileReader(destination + "Regionalt_DB/01_noegle_tal.csv"));
         List<String[]> csvData = csvReader.readAll();
 
@@ -70,7 +105,9 @@ public class Launch {
 
 
         }
+    }
 
+    private static void writeToJson() {
         System.out.println("Writing to json...");
 
         try (Writer writer = Files.newBufferedWriter(Paths.get("./data/json/" + date + ".json"), StandardCharsets.UTF_8)) {
@@ -80,7 +117,29 @@ public class Launch {
         }
 
         System.out.println("Complete!");
+    }
+
+    private static String getUrl() {
+
+        try {
+
+            System.out.println("Connecting to SSI...");
+
+            Document url = Jsoup.connect("https://covid19.ssi.dk/overvagningsdata/download-fil-med-overvaagningdata").userAgent("Mozilla/5.0").get();
+
+            return url.select("div.accordion-body").select("a[href]").attr("href");
+
+        } catch (IOException e) {
+
+            System.err.println("Connection failed.");
+            e.printStackTrace();
+            System.exit(0);
+
+            return null;
+
+        }
 
     }
+
 
 }
