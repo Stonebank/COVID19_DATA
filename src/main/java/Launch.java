@@ -97,7 +97,7 @@ public class Launch {
 
             region.addInfected(infected);
             region.addDead(dead);
-            region.addHealthy(healthy);
+            region.addRecovered(healthy);
             region.addHospitalized(hospitalized);
             region.addTest(test);
 

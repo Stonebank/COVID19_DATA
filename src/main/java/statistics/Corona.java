@@ -17,7 +17,7 @@ public class Corona {
 
     private int infected;
     private int dead;
-    private int healthy;
+    private int recovered;
     private int hospitalized;
     private int test;
 
@@ -37,8 +37,8 @@ public class Corona {
         this.dead += amount;
     }
 
-    public void addHealthy(int amount) {
-        this.healthy += amount;
+    public void addRecovered(int amount) {
+        this.recovered += amount;
     }
 
     public void addHospitalized(int amount) {
@@ -77,7 +77,7 @@ public class Corona {
 
             int deltaInfected = actual[i].infected - old[i].infected;
             int deltaDead = actual[i].dead - old[i].dead;
-            int deltaHealthy = actual[i].healthy - old[i].healthy;
+            int deltaHealthy = actual[i].recovered - old[i].recovered;
             int deltaHospitalized = actual[i].hospitalized - old[i].hospitalized;
             int deltaTest = actual[i].test - old[i].test;
 

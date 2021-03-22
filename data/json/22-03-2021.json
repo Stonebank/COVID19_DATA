@@ -3,7 +3,7 @@
     "region": "Hovedstaden",
     "infected": 106082,
     "dead": 1282,
-    "healthy": 100990,
+    "recovered": 100990,
     "hospitalized": 6420,
     "test": 1521820
   },
@@ -11,7 +11,7 @@
     "region": "Midtjylland",
     "infected": 39428,
     "dead": 341,
-    "healthy": 37546,
+    "recovered": 37546,
     "hospitalized": 1874,
     "test": 1023973
   },
@@ -19,7 +19,7 @@
     "region": "NA",
     "infected": 2245,
     "dead": 2,
-    "healthy": 2070,
+    "recovered": 2070,
     "hospitalized": 136,
     "test": 92045
   },
@@ -27,7 +27,7 @@
     "region": "Nordjylland",
     "infected": 15311,
     "dead": 179,
-    "healthy": 14526,
+    "recovered": 14526,
     "hospitalized": 816,
     "test": 485270
   },
@@ -35,7 +35,7 @@
     "region": "Sjælland",
     "infected": 31296,
     "dead": 389,
-    "healthy": 29717,
+    "recovered": 29717,
     "hospitalized": 2277,
     "test": 637027
   },
@@ -43,7 +43,7 @@
     "region": "Syddanmark",
     "infected": 31915,
     "dead": 209,
-    "healthy": 29440,
+    "recovered": 29440,
     "hospitalized": 1529,
     "test": 950401
   }
