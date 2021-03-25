@@ -67,11 +67,17 @@ public class Corona {
 
     public static void main(String[] args) {
 
-        Corona[] actual = getStoredData("22-03-2021");
-        Corona[] old = getStoredData("18-03-2021");
+        Corona[] actual = getStoredData("23-03-2021");
+        Corona[] old = getStoredData("22-03-2021");
 
         assert actual != null;
         assert old != null;
+
+        int totalInfected = 0;
+        int totaltest = 0;
+        int totalDead = 0;
+        int totalRecovered = 0;
+        int totalHospitalized = 0;
 
         for (int i = 0; i < actual.length; i++) {
 
@@ -89,7 +95,19 @@ public class Corona {
             System.out.println(getSymbol("Test", deltaTest));
             System.out.println();
 
+            totalInfected += deltaInfected;
+            totaltest += deltaTest;
+            totalDead += deltaDead;
+            totalRecovered += deltaHealthy;
+            totalHospitalized += deltaHospitalized;
+
         }
+
+        System.out.println("new test: " + totaltest);
+        System.out.println("new infected: " + totalInfected);
+        System.out.println("New dead: " + totalDead);
+        System.out.println("new recovered: " + totalRecovered);
+        System.out.println("total new hospitalized: " + totalHospitalized);
 
     }
 

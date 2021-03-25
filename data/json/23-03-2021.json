@@ -1,0 +1,50 @@
+[
+  {
+    "region": "Hovedstaden",
+    "infected": 106425,
+    "dead": 1283,
+    "recovered": 101259,
+    "hospitalized": 6448,
+    "test": 1524840
+  },
+  {
+    "region": "Midtjylland",
+    "infected": 39544,
+    "dead": 341,
+    "recovered": 37707,
+    "hospitalized": 1878,
+    "test": 1026302
+  },
+  {
+    "region": "NA",
+    "infected": 2266,
+    "dead": 2,
+    "recovered": 2084,
+    "hospitalized": 137,
+    "test": 93266
+  },
+  {
+    "region": "Nordjylland",
+    "infected": 15373,
+    "dead": 179,
+    "recovered": 14577,
+    "hospitalized": 817,
+    "test": 485918
+  },
+  {
+    "region": "Sjælland",
+    "infected": 31359,
+    "dead": 389,
+    "recovered": 29805,
+    "hospitalized": 2283,
+    "test": 638638
+  },
+  {
+    "region": "Syddanmark",
+    "infected": 32064,
+    "dead": 209,
+    "recovered": 29603,
+    "hospitalized": 1534,
+    "test": 952939
+  }
+]

@@ -27,10 +27,9 @@ public class Launch {
         Timer timer = new Timer();
         Calendar date = Calendar.getInstance();
 
-        date.set(Calendar.HOUR_OF_DAY, 16);
+        date.set(Calendar.HOUR_OF_DAY, 14);
         date.set(Calendar.MINUTE, 10);
         date.set(Calendar.SECOND, 0);
-        date.set(Calendar.MILLISECOND, 0);
 
         System.out.println("Planned task will execute " + date.get(Calendar.HOUR_OF_DAY) + ":" + date.get(Calendar.MINUTE) + ".");
 
